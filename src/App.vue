@@ -1,16 +1,16 @@
 <template>
   <div id="app">
     <h2>De Club met Stootkracht</h2>
-    <Scoreboard />
+    <ScoreboardComponent />
   </div>
 </template>
 
-<script>
-import Scoreboard from './components/Scoreboard.vue';
+<script lang="ts">
+import ScoreboardComponent from './components/ScoreboardComponent.vue';
 
 export default {
   components: {
-    Scoreboard
+    ScoreboardComponent
   }
 };
 </script>

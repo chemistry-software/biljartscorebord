@@ -1,15 +1,15 @@
 <template>
   <div>
     <div class="players-container">
-      <Player
+      <PlayerComponent
         v-for="(player, index) in players"
         :key="index"
         :playerName="player.name"
         :points="player.points"
-	:turnsTaken="player.turnsTaken"
-	:pointsNeeded="player.pointsNeeded"
-	:isCurrentPlayer="index === currentPlayerIndex"
-	/>
+        :turnsTaken="player.turnsTaken"
+        :pointsNeeded="player.pointsNeeded"
+        :isCurrentPlayer="index === currentPlayerIndex"
+      />
     </div>
     <div class="turns-container">
       <p>Beurten: {{ players[0].turnsTaken }}</p>
@@ -22,12 +22,13 @@
   </div>
 </template>
 
-<script>
-import Player from './Player.vue';
+<script lang="ts">
+import PlayerComponent from './PlayerComponent.vue';
 
 export default {
+  name: 'ScoreboardComponent', // Renamed component to ensure it is multi-word
   components: {
-    Player
+    PlayerComponent
   },
   data() {
     return {
