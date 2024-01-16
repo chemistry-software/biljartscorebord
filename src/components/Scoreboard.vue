@@ -9,7 +9,7 @@
     />
     <button @click="incrementPoints">+1</button>
     <button @click="decrementPoints">-1</button>
-    <button @click="nextPlayer">Next Player</button>
+    <button @click="nextPlayer">Volgende beurt</button>
   </div>
 </template>
 
@@ -23,8 +23,8 @@ export default {
   data() {
     return {
       players: [
-        { name: 'Player 1', points: 0, turnsTaken: 0 },
-        { name: 'Player 2', points: 0, turnsTaken: 0 }
+        { name: 'Speler 1', points: 0, turnsTaken: 0 },
+        { name: 'Speler 2', points: 0, turnsTaken: 0 }
       ],
       currentPlayerIndex: 0 // Index of the current player in the players array
     };

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Billiards Scoreboard</h1>
+    <h2>De Club met Stootkracht</h2>
     <Scoreboard />
   </div>
 </template>

@@ -1,8 +1,8 @@
 <template>
   <div>
     <h2>{{ playerName }}</h2>
-    <p>Points: {{ points }}</p>
-    <p>Turns Taken: {{ turnsTaken }}</p>
+    <p>Punten: {{ points }}</p>
+    <p>Beurten: {{ turnsTaken }}</p>
   </div>
 </template>
 
