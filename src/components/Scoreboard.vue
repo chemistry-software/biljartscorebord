@@ -6,8 +6,13 @@
         :key="index"
         :playerName="player.name"
         :points="player.points"
-        :turnsTaken="player.turnsTaken"
-      />
+	:turnsTaken="player.turnsTaken"
+	:pointsNeeded="player.pointsNeeded"
+	:isCurrentPlayer="index === currentPlayerIndex"
+	/>
+    </div>
+    <div class="turns-container">
+      <p>Beurten: {{ players[0].turnsTaken }}</p>
     </div>
     <div class="button-container">
       <button @click="incrementPoints">+1</button>
@@ -27,8 +32,8 @@ export default {
   data() {
     return {
       players: [
-        { name: 'Player 1', points: 0, turnsTaken: 0 },
-        { name: 'Player 2', points: 0, turnsTaken: 0 }
+        { name: 'Player 1', points: 0, turnsTaken: 1, pointsNeeded: 30 },
+        { name: 'Player 2', points: 0, turnsTaken: 1, pointsNeeded: 42 }
       ],
       currentPlayerIndex: 0 // Index of the current player in the players array
     };
@@ -53,6 +58,11 @@ export default {
   display: flex;
   justify-content: space-around;
   margin-bottom: 20px;
+}
+
+.turns-container {
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .button-container {
