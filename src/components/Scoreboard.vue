@@ -1,15 +1,19 @@
 <template>
   <div>
-    <Player
-      v-for="(player, index) in players"
-      :key="index"
-      :playerName="player.name"
-      :points="player.points"
-      :turnsTaken="player.turnsTaken"
-    />
-    <button @click="incrementPoints">+1</button>
-    <button @click="decrementPoints">-1</button>
-    <button @click="nextPlayer">Volgende beurt</button>
+    <div class="players-container">
+      <Player
+        v-for="(player, index) in players"
+        :key="index"
+        :playerName="player.name"
+        :points="player.points"
+        :turnsTaken="player.turnsTaken"
+      />
+    </div>
+    <div class="button-container">
+      <button @click="incrementPoints">+1</button>
+      <button @click="decrementPoints">-1</button>
+      <button @click="nextPlayer">Next Player</button>
+    </div>
   </div>
 </template>
 
@@ -23,8 +27,8 @@ export default {
   data() {
     return {
       players: [
-        { name: 'Speler 1', points: 0, turnsTaken: 0 },
-        { name: 'Speler 2', points: 0, turnsTaken: 0 }
+        { name: 'Player 1', points: 0, turnsTaken: 0 },
+        { name: 'Player 2', points: 0, turnsTaken: 0 }
       ],
       currentPlayerIndex: 0 // Index of the current player in the players array
     };
@@ -43,4 +47,17 @@ export default {
   }
 };
 </script>
+
+<style>
+.players-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+}
+</style>
 
