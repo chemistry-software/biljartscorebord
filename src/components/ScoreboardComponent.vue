@@ -13,7 +13,8 @@
       />
     </div>
     <div class="turns-container">
-      <p>Beurten: {{ players[0].turnsTaken || 1 }}</p>
+      <h1>Beurten: {{ players[0].turnsTaken || 1 }}</h1>
+      <SegmentedDisplay />
     </div>
     <div class="button-container">
       <button @click="incrementPoints">+1</button>
@@ -21,16 +22,20 @@
       <button @click="nextPlayer">Volgende speler</button>
     </div>
   </div>
+  // eslint-disable-next-line vue/no-deprecated-html-element-is
+  <button is='google-cast-button'></button>
 </template>
 
 <script lang="ts">
 import PlayerComponent from './PlayerComponent.vue';
+import SegmentedDisplay from './SegmentedDisplay.vue';
 
 export default {
   name: 'ScoreboardComponent',
   components: {
-    PlayerComponent
-  },
+    PlayerComponent,
+    SegmentedDisplay
+},
   data() {
     return {
       players: [
@@ -59,17 +64,23 @@ export default {
 .players-container {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 20px;
+  gap: 100px;
+  margin-bottom: 50px;
 }
 
 .turns-container {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
 }
 
 .button-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
+}
+
+.button-container button {
+  font-size: 24px;
+  padding: 10px 40px;
 }
 </style>
 

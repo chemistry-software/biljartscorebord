@@ -49,7 +49,7 @@ export default {
   justify-content: center;
 
   --bg-color: none;
-  --ia-color: #666;
+  --ia-color: #66666634;
   --a-color: rgb(219, 19, 19);
   --padding-p: 4px;
   --bar-w: 16px;
