@@ -1,15 +1,17 @@
 <template>
   <div id="app">
-    <h2>De Club met Stootkracht</h2>
+    <HeaderComponent />
     <ScoreboardComponent />
   </div>
 </template>
 
 <script lang="ts">
+import HeaderComponent from './components/HeaderComponent.vue';
 import ScoreboardComponent from './components/ScoreboardComponent.vue';
 
 export default {
   components: {
+    HeaderComponent,
     ScoreboardComponent
   }
 };
@@ -21,14 +23,25 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
-
-h1 {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 button {
-  margin-top: 10px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
 }
 </style>
 

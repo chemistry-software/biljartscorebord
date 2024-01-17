@@ -9,15 +9,16 @@
         :turnsTaken="player.turnsTaken"
         :pointsNeeded="player.pointsNeeded"
         :isCurrentPlayer="index === currentPlayerIndex"
+        :playerIdx="index"
       />
     </div>
     <div class="turns-container">
-      <p>Beurten: {{ players[0].turnsTaken }}</p>
+      <p>Beurten: {{ players[0].turnsTaken || 1 }}</p>
     </div>
     <div class="button-container">
       <button @click="incrementPoints">+1</button>
       <button @click="decrementPoints">-1</button>
-      <button @click="nextPlayer">Next Player</button>
+      <button @click="nextPlayer">Volgende speler</button>
     </div>
   </div>
 </template>
@@ -26,17 +27,17 @@
 import PlayerComponent from './PlayerComponent.vue';
 
 export default {
-  name: 'ScoreboardComponent', // Renamed component to ensure it is multi-word
+  name: 'ScoreboardComponent',
   components: {
     PlayerComponent
   },
   data() {
     return {
       players: [
-        { name: 'Player 1', points: 0, turnsTaken: 1, pointsNeeded: 30 },
-        { name: 'Player 2', points: 0, turnsTaken: 1, pointsNeeded: 42 }
+        { name: 'Player 1', points: 0, turnsTaken: 1, pointsNeeded: 30 }, /* turnsTaken is 1 because the first player always starts */
+        { name: 'Player 2', points: 0, turnsTaken: 0, pointsNeeded: 42 }
       ],
-      currentPlayerIndex: 0 // Index of the current player in the players array
+      currentPlayerIndex: 0
     };
   },
   methods: {
@@ -47,8 +48,8 @@ export default {
       this.players[this.currentPlayerIndex].points -= 1;
     },
     nextPlayer() {
-      this.players[this.currentPlayerIndex].turnsTaken += 1;
       this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.length;
+      this.players[this.currentPlayerIndex].turnsTaken += 1;
     }
   }
 };
