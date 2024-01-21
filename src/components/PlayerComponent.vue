@@ -2,10 +2,10 @@
   <div>
     <h1>{{ points }}</h1>
     <h2>
-      <span :class="{ 'current-player': isCurrentPlayer }" class="current-player-ball" :style="currentBallColor"></span>
+      <span :class="{ 'current-player': isCurrentPlayer }" class="current-player-ball"></span>
       {{ playerName }} ({{ pointsNeeded }})
     </h2>
-    <SegmentedDisplay :points="points" />
+    <SegmentedDisplay :points="points" :n-digits="3" />
     <p>Moyenne: {{ (points / (turnsTaken || 1)).toFixed(3) }}</p>
   </div>
 </template>
@@ -18,11 +18,9 @@ export default {
   components: {
     SegmentedDisplay
   },
-  computed: {
-    currentBallColor() {
-      return {
-        '--current-ball-color' : this.playerIdx === 0 ? 'yellow' : 'white'
-      };
+  data() {
+    return {
+      ballColor: this.playerIdx == 0 ? 'yellow' : 'white'
     }
   }
 };
@@ -31,7 +29,7 @@ export default {
 <style scoped>
 .current-player-ball {
   display: none;
-  background-color: var(--current-ball-color);
+  background-color: v-bind(ballColor);
   border-radius: 50%;
   padding: 10px;
 }

@@ -14,7 +14,7 @@
     </div>
     <div class="turns-container">
       <h1>Beurten: {{ players[0].turnsTaken || 1 }}</h1>
-      <SegmentedDisplay />
+      <SegmentedDisplay :points="turn" :nDigits="2"/>
     </div>
     <div class="button-container">
       <button @click="incrementPoints">+1</button>
@@ -22,8 +22,6 @@
       <button @click="nextPlayer">Volgende speler</button>
     </div>
   </div>
-  // eslint-disable-next-line vue/no-deprecated-html-element-is
-  <button is='google-cast-button'></button>
 </template>
 
 <script lang="ts">
@@ -55,6 +53,11 @@ export default {
     nextPlayer() {
       this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.length;
       this.players[this.currentPlayerIndex].turnsTaken += 1;
+    }
+  },
+  computed: {
+    turn() {
+      return this.players[0].turnsTaken;
     }
   }
 };
