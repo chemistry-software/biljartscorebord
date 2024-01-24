@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <h1>{{ points }}</h1> -->
     <h2>
       <span :class="{ 'current-player': isCurrentPlayer }" class="current-player-ball"></span>
       {{ playerName }} ({{ pointsNeeded }})
@@ -14,13 +13,13 @@
 import SegmentedDisplay from './SegmentedDisplay.vue';
 
 export default {
-  props: ['playerName', 'points', 'turnsTaken', 'pointsNeeded', 'isCurrentPlayer', 'playerIdx'],
+  props: ['playerName', 'points', 'turnsTaken', 'pointsNeeded', 'isCurrentPlayer', 'started'],
   components: {
     SegmentedDisplay
   },
   data() {
     return {
-      ballColor: this.playerIdx == 0 ? 'yellow' : 'white'
+      ballColor: this.started ? 'yellow' : 'white'
     }
   }
 };
