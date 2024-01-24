@@ -1,41 +1,51 @@
 <template>
   <div>
     <div class="config-container">
-      <label for="playerSelect">Select Player:</label>
-      <select id="playerSelect" v-model="currentPlayerIndex">
+      <label for="player1Select">Select Player 1:</label>
+      <select id="player1Select" v-model="player1Index">
+        <option v-for="(player, index) in players" :key="index" :value="index">{{ player.name }}</option>
+      </select>
+
+      <label for="player2Select">Select Player 2:</label>
+      <select id="player2Select" v-model="player2Index">
         <option v-for="(player, index) in players" :key="index" :value="index">{{ player.name }}</option>
       </select>
     </div>
 
     <div class="players-container">
       <PlayerComponent
-        v-for="(player, index) in players"
-        :key="index"
-        :playerName="player.name"
-        :points="player.points"
-        :turnsTaken="player.turnsTaken"
-        :pointsNeeded="player.pointsNeeded"
-        :isCurrentPlayer="index === currentPlayerIndex"
-        :playerIdx="index"
+        :playerName="players[player1Index]?.name"
+        :points="players[player1Index]?.points"
+        :turnsTaken="players[player1Index]?.turnsTaken"
+        :pointsNeeded="players[player1Index]?.pointsNeeded"
+        :isCurrentPlayer="currentPlayerIndex === player1Index"
+        :playerIdx="player1Index"
+      />
+      <PlayerComponent
+        :playerName="players[player2Index]?.name"
+        :points="players[player2Index]?.points"
+        :turnsTaken="players[player2Index]?.turnsTaken"
+        :pointsNeeded="players[player2Index]?.pointsNeeded"
+        :isCurrentPlayer="currentPlayerIndex === player2Index"
+        :playerIdx="player2Index"
       />
     </div>
 
     <div class="turns-container">
-      <h1>Beurten: {{ turn }}</h1>
-      <!-- Assuming 'turn' is a computed property in your script -->
+      <h1>Beurten: {{ players[player1Index]?.turnsTaken || 1 }}</h1>
       <SegmentedDisplay :points="turn" :nDigits="2"/>
     </div>
 
     <div class="button-container">
-      <button @click="incrementPoints">+1</button>
-      <button @click="decrementPoints">-1</button>
+      <button @click="incrementPoints(player1Index)">+1 Player 1</button>
+      <button @click="decrementPoints(player1Index)">-1 Player 1</button>
       <button @click="nextPlayer">Volgende speler</button>
+      <button @click="incrementPoints(player2Index)">+1 Player 2</button>
+      <button @click="decrementPoints(player2Index)">-1 Player 2</button>
     </div>
   </div>
 </template>
 
-
-<!-- ScoreboardComponent.vue -->
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
 import PlayerComponent from './PlayerComponent.vue';
@@ -50,12 +60,12 @@ interface Player {
 
 let players = ref<Player[]>([]);
 let currentPlayerIndex = ref(0);
+let player1Index = ref(0);
+let player2Index = ref(1); // Set the default for player 2
 
 const selectedPlayer = computed(() => players.value[currentPlayerIndex.value]);
 
 const loadPlayers = () => {
-  // Fetch players data from a JSON file or an API
-  // For simplicity, I'll use a hardcoded JSON here
   players.value = [
     { name: 'Bob', points: 0, turnsTaken: 1, pointsNeeded: 30 },
     { name: 'Henk', points: 0, turnsTaken: 1, pointsNeeded: 45 },
@@ -65,16 +75,15 @@ const loadPlayers = () => {
 };
 
 onMounted(() => {
-  // Load players from a JSON file or an API
   loadPlayers();
 });
 
-const incrementPoints = () => {
-  selectedPlayer.value.points += 1;
+const incrementPoints = (playerIndex: number) => {
+  players.value[playerIndex].points += 1;
 };
 
-const decrementPoints = () => {
-  selectedPlayer.value.points -= 1;
+const decrementPoints = (playerIndex: number) => {
+  players.value[playerIndex].points -= 1;
 };
 
 const nextPlayer = () => {
@@ -82,8 +91,10 @@ const nextPlayer = () => {
   players.value[currentPlayerIndex.value].turnsTaken += 1;
 };
 
-const turn = 1; //computed(() => selectedPlayer.value.turnsTaken);
+const turn = computed(() => selectedPlayer?.value?.turnsTaken);
 </script>
+
+
 
 <style>
 .players-container {

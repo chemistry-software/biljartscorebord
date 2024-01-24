@@ -1,7 +1,7 @@
 <template>
   <div class="points-display">
     <!-- Loop through each digit in the points string -->
-    <div v-for="(digit, index) in points.toString().padStart(nDigits, ' ')" :key="index" class="s7s">
+    <div v-for="(digit, index) in points?.toString()?.padStart(nDigits, ' ') || '0'" :key="index" class="s7s">
       <input :value="digit" :class="`digit-${digit}`" />
       <span></span>
       <span></span>
