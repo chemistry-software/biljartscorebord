@@ -1,6 +1,7 @@
-# biljartscorebord
+# Biljartscorebord
 
-This template should help get you started developing with Vue 3 in Vite.
+Biljartscorebord voor Bulthoes
+### Autheur: [B. Bosman - chemistry.software](https://chemistry.software)
 
 ## Recommended IDE Setup
 

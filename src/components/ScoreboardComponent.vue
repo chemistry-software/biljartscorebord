@@ -2,7 +2,7 @@
   <div>
     <div class="players-container">
       <PlayerComponent
-        :playerName="players[player1Index]?.name"
+        :playerName="players[player1Index]?.firstName"
         :points="players[player1Index]?.points"
         :turnsTaken="players[player1Index]?.turnsTaken"
         :pointsNeeded="players[player1Index]?.pointsNeeded"
@@ -10,7 +10,7 @@
         :started="true"
       />
       <PlayerComponent
-        :playerName="players[player2Index]?.name"
+        :playerName="players[player2Index]?.firstName"
         :points="players[player2Index]?.points"
         :turnsTaken="players[player2Index]?.turnsTaken"
         :pointsNeeded="players[player2Index]?.pointsNeeded"
@@ -25,22 +25,22 @@
     </div>
 
     <div class="button-container">
-      <button @click="incrementPoints(player1Index)">+1 {{ players[player1Index]?.name }}</button>
-      <button @click="decrementPoints(player1Index)">-1 {{ players[player1Index]?.name }}</button>
+      <button @click="incrementPoints(player1Index)">+1 {{ players[player1Index]?.firstName }}</button>
+      <button @click="decrementPoints(player1Index)">-1 {{ players[player1Index]?.firstName }}</button>
       <button @click="nextPlayer">Volgende speler</button>
-      <button @click="incrementPoints(player2Index)">+1 {{ players[player2Index]?.name }}</button>
-      <button @click="decrementPoints(player2Index)">-1 {{ players[player2Index]?.name }}</button>
+      <button @click="incrementPoints(player2Index)">+1 {{ players[player2Index]?.firstName }}</button>
+      <button @click="decrementPoints(player2Index)">-1 {{ players[player2Index]?.firstName }}</button>
     </div>
 
     <div class="config-container">
       <label for="player1Select">Speler 1:</label>
       <select id="player1Select" v-model="player1Index">
-        <option v-for="(player, index) in players" :key="index" :value="index">{{ player.name }} ({{ player.pointsNeeded }})</option>
+        <option v-for="(player, index) in players" :key="index" :value="index">{{ getFullName(index) }} ({{ player.pointsNeeded }})</option>
       </select>
 
       <label for="player2Select">Speler 2:</label>
       <select id="player2Select" v-model="player2Index">
-        <option v-for="(player, index) in players" :key="index" :value="index">{{ player.name }} ({{ player.pointsNeeded }})</option>
+        <option v-for="(player, index) in players" :key="index" :value="index">{{ getFullName(index) }} ({{ player.pointsNeeded }})</option>
       </select>
       <button @click="startNewGame">Nieuw spel</button>
     </div>
@@ -53,7 +53,8 @@ import PlayerComponent from './PlayerComponent.vue';
 import SegmentedDisplay from './SegmentedDisplay.vue';
 
 interface Player {
-  name: string;
+  firstName: string;
+  lastName?: string;
   points: number;
   turnsTaken: number;
   pointsNeeded: number;
@@ -77,25 +78,30 @@ const nextPlayer = () => {
 
 const turn = computed(() => players?.value[currentPlayerIndex.value]?.turnsTaken || 1);
 
+// todo: points and turnsTaken don't need to be in the Player interface, because they're not part of the player's identity and get reset each game
 const loadPlayers = () => {
   players.value = [
-    { name: 'Anno', points: 0, turnsTaken: 0, pointsNeeded: 71 },
-    { name: 'Ido', points: 0, turnsTaken: 0, pointsNeeded: 53 },
-    { name: 'Bert', points: 0, turnsTaken: 0, pointsNeeded: 49 },
-    { name: 'Geert', points: 0, turnsTaken: 0, pointsNeeded: 36 },
-    { name: 'Gerrit', points: 0, turnsTaken: 0, pointsNeeded: 35 },
-    { name: 'Erik', points: 0, turnsTaken: 0, pointsNeeded: 32 },
-    { name: 'Piet', points: 0, turnsTaken: 0, pointsNeeded: 23 },
-    { name: 'Brendon', points: 0, turnsTaken: 0, pointsNeeded: 20 },
-    { name: 'Giel', points: 0, turnsTaken: 0, pointsNeeded: 18 },
-    { name: 'Louis', points: 0, turnsTaken: 0, pointsNeeded: 16 },
-    { name: 'Anjo', points: 0, turnsTaken: 0, pointsNeeded: 12 },
+    { lastName: 'Scholtens', firstName: 'Anno', points: 0, turnsTaken: 0, pointsNeeded: 77 },
+    { lastName: 'de Boer', firstName: 'Ido', points: 0, turnsTaken: 0, pointsNeeded: 53 },
+    { lastName: 'Meerstra', firstName: 'Bert', points: 0, turnsTaken: 0, pointsNeeded: 48 },
+    { lastName: 'Mennes', firstName: 'Geert', points: 0, turnsTaken: 0, pointsNeeded: 31 },
+    { lastName: 'Moes', firstName: 'Gerrit', points: 0, turnsTaken: 0, pointsNeeded: 31 },
+    { lastName: 'Hamminga', firstName: 'Erik', points: 0, turnsTaken: 0, pointsNeeded: 31 },
+    { lastName: 'Smit', firstName: 'Piet', points: 0, turnsTaken: 0, pointsNeeded: 31 },
+    { lastName: 'Bosman', firstName: 'Brendon', points: 0, turnsTaken: 0, pointsNeeded: 36 },
+    { lastName: 'de Boer', firstName: 'Giel', points: 0, turnsTaken: 0, pointsNeeded: 25 },
+    { lastName: 'Timmers', firstName: 'Louis', points: 0, turnsTaken: 0, pointsNeeded: 23 },
+    { lastName: 'Bakker', firstName: 'Anjo', points: 0, turnsTaken: 0, pointsNeeded: 13 },
   ];
 };
 
 onMounted(() => {
   loadPlayers();
 });
+
+const getFullName = (playerIndex: number) => {
+  return `${players.value[playerIndex].firstName} ${players.value[playerIndex].lastName}`;
+};
 
 const incrementPoints = (playerIndex: number) => {
   players.value[playerIndex].points += 1;
@@ -112,6 +118,7 @@ const startNewGame = () => {
     player.turnsTaken = 0;
   });
   players.value[player1Index.value].turnsTaken = 1;
+  currentPlayerIndex.value = player1Index.value;
 };
 
 </script>
