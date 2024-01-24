@@ -1,7 +1,8 @@
 # Biljartscorebord
 
 Biljartscorebord voor Bulthoes
-### Autheur: [B. Bosman - chemistry.software](https://chemistry.software)
+### Auteur 
+[B. Bosman - chemistry.software](https://chemistry.software)
 
 ## Recommended IDE Setup
 
