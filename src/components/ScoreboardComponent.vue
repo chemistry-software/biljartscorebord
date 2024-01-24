@@ -1,5 +1,12 @@
 <template>
   <div>
+    <div class="config-container">
+      <label for="playerSelect">Select Player:</label>
+      <select id="playerSelect" v-model="currentPlayerIndex">
+        <option v-for="(player, index) in players" :key="index" :value="index">{{ player.name }}</option>
+      </select>
+    </div>
+
     <div class="players-container">
       <PlayerComponent
         v-for="(player, index) in players"
@@ -12,10 +19,13 @@
         :playerIdx="index"
       />
     </div>
+
     <div class="turns-container">
-      <h1>Beurten: {{ players[0].turnsTaken || 1 }}</h1>
+      <h1>Beurten: {{ turn }}</h1>
+      <!-- Assuming 'turn' is a computed property in your script -->
       <SegmentedDisplay :points="turn" :nDigits="2"/>
     </div>
+
     <div class="button-container">
       <button @click="incrementPoints">+1</button>
       <button @click="decrementPoints">-1</button>
@@ -24,43 +34,55 @@
   </div>
 </template>
 
-<script lang="ts">
+
+<!-- ScoreboardComponent.vue -->
+<script setup lang="ts">
+import { ref, onMounted, computed } from 'vue';
 import PlayerComponent from './PlayerComponent.vue';
 import SegmentedDisplay from './SegmentedDisplay.vue';
 
-export default {
-  name: 'ScoreboardComponent',
-  components: {
-    PlayerComponent,
-    SegmentedDisplay
-},
-  data() {
-    return {
-      players: [
-        { name: 'Player 1', points: 0, turnsTaken: 1, pointsNeeded: 30 }, /* turnsTaken is 1 because the first player always starts */
-        { name: 'Player 2', points: 0, turnsTaken: 0, pointsNeeded: 42 }
-      ],
-      currentPlayerIndex: 0
-    };
-  },
-  methods: {
-    incrementPoints() {
-      this.players[this.currentPlayerIndex].points += 1;
-    },
-    decrementPoints() {
-      this.players[this.currentPlayerIndex].points -= 1;
-    },
-    nextPlayer() {
-      this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.length;
-      this.players[this.currentPlayerIndex].turnsTaken += 1;
-    }
-  },
-  computed: {
-    turn() {
-      return this.players[0].turnsTaken;
-    }
-  }
+interface Player {
+  name: string;
+  points: number;
+  turnsTaken: number;
+  pointsNeeded: number;
+}
+
+let players = ref<Player[]>([]);
+let currentPlayerIndex = ref(0);
+
+const selectedPlayer = computed(() => players.value[currentPlayerIndex.value]);
+
+const loadPlayers = () => {
+  // Fetch players data from a JSON file or an API
+  // For simplicity, I'll use a hardcoded JSON here
+  players.value = [
+    { name: 'Bob', points: 0, turnsTaken: 1, pointsNeeded: 30 },
+    { name: 'Henk', points: 0, turnsTaken: 1, pointsNeeded: 45 },
+    { name: 'Fred', points: 0, turnsTaken: 1, pointsNeeded: 69 },
+    { name: 'Derp', points: 0, turnsTaken: 1, pointsNeeded: 12 }
+  ];
 };
+
+onMounted(() => {
+  // Load players from a JSON file or an API
+  loadPlayers();
+});
+
+const incrementPoints = () => {
+  selectedPlayer.value.points += 1;
+};
+
+const decrementPoints = () => {
+  selectedPlayer.value.points -= 1;
+};
+
+const nextPlayer = () => {
+  currentPlayerIndex.value = (currentPlayerIndex.value + 1) % players.value.length;
+  players.value[currentPlayerIndex.value].turnsTaken += 1;
+};
+
+const turn = 1; //computed(() => selectedPlayer.value.turnsTaken);
 </script>
 
 <style>

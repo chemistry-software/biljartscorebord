@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ points }}</h1>
+    <!-- <h1>{{ points }}</h1> -->
     <h2>
       <span :class="{ 'current-player': isCurrentPlayer }" class="current-player-ball"></span>
       {{ playerName }} ({{ pointsNeeded }})
