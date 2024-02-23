@@ -1,0 +1,14 @@
+[
+  { "lastName": "Smith", "firstName": "John", "pointsNeeded": 77 },
+  { "lastName": "Johnson", "firstName": "Robert", "pointsNeeded": 53 },
+  { "lastName": "Williams", "firstName": "Michael", "pointsNeeded": 48 },
+  { "lastName": "Jones", "firstName": "William", "pointsNeeded": 31 },
+  { "lastName": "Brown", "firstName": "David", "pointsNeeded": 31 },
+  { "lastName": "Davis", "firstName": "Richard", "pointsNeeded": 31 },
+  { "lastName": "Miller", "firstName": "Joseph", "pointsNeeded": 31 },
+  { "lastName": "Wilson", "firstName": "Charles", "pointsNeeded": 36 },
+  { "lastName": "Moore", "firstName": "Thomas", "pointsNeeded": 25 },
+  { "lastName": "Taylor", "firstName": "Christopher", "pointsNeeded": 23 },
+  { "lastName": "Anderson", "firstName": "Daniel", "pointsNeeded": 13 }
+]
+

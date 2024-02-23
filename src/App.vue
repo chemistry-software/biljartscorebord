@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <HeaderComponent />
-    <ScoreboardComponent />
     <router-view />
   </div>
 </template>

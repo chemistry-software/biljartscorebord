@@ -18,9 +18,11 @@
         :started="false"
       />
     </div>
+    <h1>{{ players[player1Index].points }} - {{ players[player2Index].points }}</h1>
 
     <div class="turns-container">
       <h1>Beurten</h1>
+      {{ players[player1Index].turnsTaken }}
       <SegmentedDisplay :points="turn" :nDigits="2"/>
     </div>
     <router-link to="/controls">Go to Controls</router-link>
@@ -28,12 +30,16 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
+import PlayerComponent from './PlayerComponent.vue';
+import SegmentedDisplay from './SegmentedDisplay.vue';
 
 const players = ref([
   { firstName: 'Player 1', points: 0, turnsTaken: 0 },
   { firstName: 'Player 2', points: 0, turnsTaken: 0 }
 ]);
+
+const turn = ref(0);
 
 const player1Index = 0;
 const player2Index = 1;
